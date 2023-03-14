@@ -1,12 +1,15 @@
-import { StyledContainer } from './App.styled';
+import { StyledContainer, StyledNavigation, StyledNavLink } from './App.styled';
 import React, { useEffect } from 'react';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { ContactsArea } from './ContactsArea/ContactsArea';
-import { Loader } from './Loader/Loader';
-import { Filter } from './Filter/Filter';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
+import { Route, Routes } from 'react-router-dom';
+import { HomePage } from '../pages/HomePage/HomePage';
+import { ContactsPage } from '../pages/ContactsPage/ContactsPage';
+import { LoginPage } from '../pages/LoginPage/LoginPage';
+import { RegisterPage } from '../pages/RegisterPage/RegisterPage';
+import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
+import { HeadStripe } from './HeadStripe/HeadStripe';
+import { BottomStripe } from './BottomStripe/BottomStripe';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -16,15 +19,27 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <StyledContainer>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <ContactsArea>
-        <Filter />
-        <Loader />
-        <ContactList />
-      </ContactsArea>
-    </StyledContainer>
+    <>
+      <HeadStripe />
+      <StyledContainer>
+        <header>
+          <StyledNavigation>
+            <StyledNavLink to="/contacts">Contacts</StyledNavLink>
+            <div>
+              <StyledNavLink to="/login">Log in</StyledNavLink>
+              <StyledNavLink to="/register">Register</StyledNavLink>
+            </div>
+          </StyledNavigation>
+        </header>
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/contacts" element={<ContactsPage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
+          <Route path="/register" element={<RegisterPage />}></Route>
+          <Route path="*" element={<NotFoundPage />}></Route>
+        </Routes>
+      </StyledContainer>
+      <BottomStripe />
+    </>
   );
 };

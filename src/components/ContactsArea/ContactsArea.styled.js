@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledContactsArea = styled.div`
-  margin: auto;
+  margin: auto auto 40px auto;
   max-width: 40%;
   min-width: 210px;
   position: relative;
