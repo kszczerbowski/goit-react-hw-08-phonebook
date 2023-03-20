@@ -6,7 +6,7 @@ export const StyledContainer = styled.div`
   text-align: center;
   max-width: 1200px;
   margin: 0px auto;
-  border: 1px solid black;
+  position: relative;
 `;
 
 export const StyledNavigation = styled.nav`
@@ -20,6 +20,12 @@ export const StyledNavLink = styled(NavLink)`
   margin: 0px 5px;
   color: white;
   &.active {
-    color: #D2042D;
+    color: #d2042d;
   }
+`;
+
+export const StyledLogOut = styled.p`
+  margin: 0px 20px;
+  color: white;
+  cursor: pointer;
 `;

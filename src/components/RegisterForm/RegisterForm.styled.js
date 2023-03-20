@@ -34,10 +34,10 @@ export const StyledRegisterSpan = styled.span`
 export const StyledInput = styled.input`
   width: 100%;
   margin-bottom: 1.25em;
-  height: 40px;
+  height: 20px;
   border-radius: 5px;
   border: 1px solid gray;
-  padding: 0.8em;
+  padding: 0.6em;
   font-family: 'Inter', sans-serif;
   outline: none;
   &focus: {

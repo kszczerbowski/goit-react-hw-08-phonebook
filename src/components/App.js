@@ -1,45 +1,84 @@
-import { StyledContainer, StyledNavigation, StyledNavLink } from './App.styled';
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from 'redux/operations';
+import {
+  StyledContainer,
+  StyledNavigation,
+  StyledNavLink,
+  StyledLogOut,
+} from './App.styled';
+import React, { lazy, Suspense } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { HomePage } from '../pages/HomePage/HomePage';
-import { ContactsPage } from '../pages/ContactsPage/ContactsPage';
-import { LoginPage } from '../pages/LoginPage/LoginPage';
-import { RegisterPage } from '../pages/RegisterPage/RegisterPage';
-import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
 import { HeadStripe } from './HeadStripe/HeadStripe';
 import { BottomStripe } from './BottomStripe/BottomStripe';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { logOut } from 'redux/auth/operations';
+
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const handleLogOut = () => {
+    dispatch(logOut());
+  };
   return (
     <>
-      <HeadStripe />
-      <StyledContainer>
-        <header>
-          <StyledNavigation>
-            <StyledNavLink to="/contacts">Contacts</StyledNavLink>
-            <div>
-              <StyledNavLink to="/login">Log in</StyledNavLink>
-              <StyledNavLink to="/register">Register</StyledNavLink>
-            </div>
-          </StyledNavigation>
-        </header>
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/contacts" element={<ContactsPage />}></Route>
-          <Route path="/login" element={<LoginPage />}></Route>
-          <Route path="/register" element={<RegisterPage />}></Route>
-          <Route path="*" element={<NotFoundPage />}></Route>
-        </Routes>
-      </StyledContainer>
-      <BottomStripe />
+      <Suspense fallback={null}>
+        <HeadStripe />
+        <StyledContainer>
+          <header>
+            <StyledNavigation>
+              <StyledNavLink to="/contacts">Contacts</StyledNavLink>
+              {isLoggedIn && (
+                <StyledLogOut onClick={handleLogOut}>Log out</StyledLogOut>
+              )}
+              {!isLoggedIn && (
+                <div>
+                  <StyledNavLink to="/login">Log in</StyledNavLink>
+                  <StyledNavLink to="/register">Register</StyledNavLink>
+                </div>
+              )}
+            </StyledNavigation>
+          </header>
+          <Routes>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsPage />}
+                />
+              }
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<LoginPage />}
+                />
+              }
+            ></Route>
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<RegisterPage />}
+                />
+              }
+            ></Route>
+            <Route path="*" element={<NotFoundPage />}></Route>
+          </Routes>
+        </StyledContainer>
+        <BottomStripe />
+      </Suspense>
     </>
   );
 };

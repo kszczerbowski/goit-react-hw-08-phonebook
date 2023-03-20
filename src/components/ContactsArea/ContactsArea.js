@@ -12,7 +12,6 @@ export const ContactsArea = () => {
         <Loader />
         <ContactList />
       </StyledContactsArea>
-      ;
     </>
   );
 };

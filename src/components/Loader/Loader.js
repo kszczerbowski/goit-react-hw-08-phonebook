@@ -1,5 +1,5 @@
 import { StyledLoader, EmptyDiv } from './Loader.styled.js';
-import { getIsLoadingContacts } from 'redux/selectors.js';
+import { getIsLoadingContacts } from 'redux/contacts/selectors.js';
 import { useSelector } from 'react-redux';
 
 export const Loader = () => {
