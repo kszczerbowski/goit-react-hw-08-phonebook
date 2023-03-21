@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_homework_template=self.webpackChunkreact_homework_template||[]).push([[117],{5117:function(t,e,n){n.r(e),n.d(e,{default:function(){return i}});n(2791);var o,r=n(168),a=n(6444).ZP.img(o||(o=(0,r.Z)(["\n  margin-top: 20px;\n  max-height: 80vh;\n  width: 70%;\n  aspect-ratio: 1.7;\n"]))),c=n(184);function i(){return(0,c.jsx)(c.Fragment,{children:(0,c.jsx)(a,{src:"https://github.com/kszczerbowski/goit-react-hw-08-phonebook/blob/main/public/pageNotFound.jpg?raw=true",alt:"page not found"})})}}}]);
+//# sourceMappingURL=117.d5ef2e30.chunk.js.map
