@@ -4,7 +4,7 @@ import {
   StyledNavLink,
   StyledLogOut,
 } from './App.styled';
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { RestrictedRoute } from './RestrictedRoute';
@@ -12,7 +12,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { HeadStripe } from './HeadStripe/HeadStripe';
 import { BottomStripe } from './BottomStripe/BottomStripe';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
-import { logOut } from 'redux/auth/operations';
+import { logOut, refreshUser } from 'redux/auth/operations';
 
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
@@ -26,6 +26,10 @@ export const App = () => {
   const handleLogOut = () => {
     dispatch(logOut());
   };
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
   return (
     <>
       <Suspense fallback={null}>
