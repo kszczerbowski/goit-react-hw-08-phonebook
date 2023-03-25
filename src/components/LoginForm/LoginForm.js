@@ -30,8 +30,18 @@ export const LoginForm = () => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledLoginSpan>Log in</StyledLoginSpan>
-      <StyledInput type="email" name="email" placeholder="Email address" />
-      <StyledInput type="password" name="password" placeholder="Password" />
+      <StyledInput
+        required
+        type="email"
+        name="email"
+        placeholder="Email address"
+      />
+      <StyledInput
+        required
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
       <StyledButton>Log in</StyledButton>
     </StyledForm>
   );

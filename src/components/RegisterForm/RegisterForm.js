@@ -37,17 +37,28 @@ export const RegisterForm = () => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledRegisterSpan>Register</StyledRegisterSpan>
-      <StyledInput type="name" name="name" placeholder="Name" />
-      <StyledInput type="email" name="email" placeholder="Email address" />
-      <StyledInput type="password" name="password" placeholder="Password" />
+      <StyledInput required type="name" name="name" placeholder="Name" />
       <StyledInput
+        required
+        type="email"
+        name="email"
+        placeholder="Email address"
+      />
+      <StyledInput
+        required
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+      <StyledInput
+        required
         type="password"
         name="passwordConfirm"
         placeholder="Confirm password"
       />
 
       <StyledTermsBox>
-        <StyledCheckbox name="okayToTerms" type="checkbox" />
+        <StyledCheckbox required name="okayToTerms" type="checkbox" />
         <StyledLabel htmlFor="okayToTerms">
           I agree to terms and conditions
         </StyledLabel>
