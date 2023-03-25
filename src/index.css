@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #212121;
   background-color: #e8e8e8;
-  min-height: 100dvh;
+  min-height: calc(100dvh-20px);
   padding-bottom: 20px;
   position: relative;
 }
