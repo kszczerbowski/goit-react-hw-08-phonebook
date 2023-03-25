@@ -13,4 +13,7 @@ export const StyledImage = styled.img`
   max-height: 80vh;
   width: 70%;
   aspect-ratio: 1.7;
+  @media (min-width: 900px) {
+    width: 50%;
+  }
 `;

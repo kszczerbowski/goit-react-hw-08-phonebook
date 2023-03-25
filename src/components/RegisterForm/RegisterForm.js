@@ -10,6 +10,7 @@ import {
 } from './RegisterForm.styled';
 import { register } from 'redux/auth/operations';
 import { useDispatch } from 'react-redux';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,20 @@ export const RegisterForm = () => {
     const name = form.elements.name.value;
     const email = form.elements.email.value;
     const password = form.elements.password.value;
+    const passwordConfirm = form.elements.passwordConfirm.value;
+    const okayToTerms = form.elements.okayToTerms.checked;
+    if (password !== passwordConfirm) {
+      Notify.failure('Both passwords need to be the same!');
+      return;
+    }
+    if (okayToTerms !== true) {
+      Notify.failure('You need to accept the terms to register!');
+      return;
+    }
     dispatch(register({ name, email, password }));
     form.reset();
   };
-
+  // hasło minimum 7 znaków, jedna duża litera i cyfra, zrób funkcję handleBlur czy coś
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledRegisterSpan>Register</StyledRegisterSpan>
@@ -36,8 +47,8 @@ export const RegisterForm = () => {
       />
 
       <StyledTermsBox>
-        <StyledCheckbox id="okayToEmail" type="checkbox" />
-        <StyledLabel htmlFor="okayToEmail">
+        <StyledCheckbox name="okayToTerms" type="checkbox" />
+        <StyledLabel htmlFor="okayToTerms">
           I agree to terms and conditions
         </StyledLabel>
       </StyledTermsBox>
