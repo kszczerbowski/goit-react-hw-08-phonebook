@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledInputArea = styled.div`
   margin: auto;
-  max-width:40%;
+  max-width: 40%;
   min-width: 210px;
   position: relative;
   display: flex;
@@ -13,7 +13,7 @@ export const StyledInputArea = styled.div`
   border-radius: 12px;
   box-shadow: 7px 7px 10px 3px #24004628;
   @media (max-width: 765px) {
-    max-width: 90%
+    max-width: 90%;
   }
 `;
 
@@ -34,7 +34,7 @@ export const StyledLabel = styled.label`
   margin: auto;
   display: block;
   font-weight: 500;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
 export const StyledAddButton = styled.button`
@@ -47,10 +47,16 @@ export const StyledAddButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: .2s ease-in;
+  transition: 0.2s ease-in;
   padding: 0px 30px 0px 30px;
   &:hover {
     cursor: pointer;
     background-color: #6d44b8;
+  }
+`;
+
+export const StyledHeading = styled.h1`
+  @media (max-width: 670px) {
+    margin-top: 70px;
   }
 `;

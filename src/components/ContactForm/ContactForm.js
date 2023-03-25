@@ -5,6 +5,7 @@ import {
   StyledInput,
   StyledLabel,
   StyledAddButton,
+  StyledHeading,
 } from './ContactForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/contacts/selectors';
@@ -28,7 +29,7 @@ export const ContactForm = () => {
   };
   return (
     <>
-      <h1>Phonebook</h1>
+      <StyledHeading>Phonebook</StyledHeading>
       <StyledInputArea>
         <StyledForm onSubmit={onSubmit}>
           <StyledLabel htmlFor="nameInput">Name</StyledLabel>

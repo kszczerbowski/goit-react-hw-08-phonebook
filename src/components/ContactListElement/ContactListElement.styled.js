@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledLI = styled.li`
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
 `;
 
 export const StyledDeleteButton = styled.button`
-  margin-left: 10px;
+  position: absolute;
+  right: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
