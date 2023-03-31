@@ -33,7 +33,8 @@ export const StyledRegisterSpan = styled.span`
 
 export const StyledInput = styled.input`
   width: 100%;
-  margin-bottom: 1.25em;
+  margin-bottom: 0.625em;
+  margin-top: 0.625em;
   height: 20px;
   border-radius: 5px;
   border: 1px solid gray;
@@ -44,11 +45,20 @@ export const StyledInput = styled.input`
     border: 1px solid #639;
     outline: none;
   }
-`;
+  `;
+  //   ${({ faulty }) => faulty === 'true' && `
+  //     &:after {
+  //       content: "This is a fancy orange box.";
+  //       background-color: #ffba10;
+  //       border-color: black;
+  //       border-style: dotted;
+  //   }
+  // `}
 
 export const StyledTermsBox = styled.div`
   display: flex;
-  margin-bottom: 1.25em;
+  margin-bottom: 0.625em;
+  margin-top: 0.625em;
   align-items: center;
 `;
 
@@ -78,3 +88,12 @@ export const StyledButton = styled.button`
     transition: 0.5s;
   }
 `;
+
+export const StyledErrorMessage = styled.div`
+color: #FFFFFF;
+background-color: #639;
+border-radius: 12px;
+padding: 8px 16px;
+width: calc(100% - 16px);
+font-size: 12px;
+`

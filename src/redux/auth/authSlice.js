@@ -6,11 +6,20 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  register: { isPasswordOk: true, isPasswordConfirmationOk: true },
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    changePasswordState(state, action) {
+      state.register.isPasswordOk = action.payload;
+    },
+    changePasswordConfirmationState(state, action) {
+      state.register.isPasswordConfirmationOk = action.payload;
+    },
+  },
   extraReducers: {
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
@@ -42,3 +51,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = authSlice.reducer;
+export const {changePasswordState, changePasswordConfirmationState} = authSlice.actions;

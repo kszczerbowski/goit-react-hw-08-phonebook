@@ -8,7 +8,6 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { RestrictedRoute } from './RestrictedRoute';
-import { PrivateRoute } from './PrivateRoute';
 import { HeadStripe } from './HeadStripe/HeadStripe';
 import { BottomStripe } from './BottomStripe/BottomStripe';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
@@ -51,15 +50,7 @@ export const App = () => {
           </header>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
-            <Route
-              path="/contacts"
-              element={
-                <PrivateRoute
-                  redirectTo="/login"
-                  component={<ContactsPage />}
-                />
-              }
-            ></Route>
+            <Route path="/contacts" element={<ContactsPage />}></Route>
             <Route
               path="/login"
               element={
