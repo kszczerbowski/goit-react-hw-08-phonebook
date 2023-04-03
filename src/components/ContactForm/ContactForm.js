@@ -10,9 +10,12 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/contacts/selectors';
 import { addContact } from 'redux/contacts/operations';
+import { addContactToStorage } from 'redux/contacts/contactsSlice';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 
 export const ContactForm = () => {
   const contacts = useSelector(getContacts);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
   const onSubmit = async event => {
     event.preventDefault();
@@ -22,7 +25,11 @@ export const ContactForm = () => {
     if (contacts.map(contact => contact.name).includes(contactName)) {
       window.alert(`${contactName} is already in contacts!`);
     } else {
-      dispatch(addContact({ name: contactName, number: contactNumber }));
+      if (isLoggedIn) {
+        dispatch(addContact({ name: contactName, number: contactNumber }));
+      } else {
+        dispatch(addContactToStorage(contactName, contactNumber));
+      }
     }
     form.reset();
     document.querySelector('input#nameInput').focus();

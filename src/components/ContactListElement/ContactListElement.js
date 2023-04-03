@@ -5,13 +5,20 @@ import {
   StyledLI,
 } from './ContactListElement.styled';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
+import { deleteContactFromStorage } from 'redux/contacts/contactsSlice';
 
 export const ContactListElement = ({ name, number, id }) => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   const onDeleteContact = () => {
-    dispatch(deleteContact(id));
+    if (isLoggedIn) {
+      dispatch(deleteContact(id));
+    } else {
+      dispatch(deleteContactFromStorage(id));
+    }
   };
   return (
     <StyledLI>

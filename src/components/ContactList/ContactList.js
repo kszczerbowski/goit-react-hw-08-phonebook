@@ -5,14 +5,17 @@ import { ContactListElement } from 'components/ContactListElement/ContactListEle
 import { getFilteredAndSortedContacts } from 'redux/contacts/selectors';
 import { fetchContacts } from 'redux/contacts/operations';
 import { useEffect } from 'react';
+import { selectIsLoggedIn } from 'redux/auth/selectors';
 
 export const ContactList = () => {
   const filteredAndSortedContacts = useSelector(getFilteredAndSortedContacts);
   const dispatch = useDispatch();
-
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    if (isLoggedIn) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, isLoggedIn]);
   return (
     <StyledContactList id="contactsList">
       {filteredAndSortedContacts.map(contact => (

@@ -12,6 +12,7 @@ import { HeadStripe } from './HeadStripe/HeadStripe';
 import { BottomStripe } from './BottomStripe/BottomStripe';
 import { selectIsLoggedIn } from 'redux/auth/selectors';
 import { logOut, refreshUser } from 'redux/auth/operations';
+import { getContacts } from 'redux/contacts/selectors';
 
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
@@ -22,13 +23,18 @@ const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 export const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const contacts = useSelector(getContacts);
   const handleLogOut = () => {
     dispatch(logOut());
   };
 
   useEffect(() => {
     dispatch(refreshUser());
-  }, [dispatch]);
+    if (!isLoggedIn) {
+      const phonebookListStringified = JSON.stringify(contacts);
+      window.localStorage.setItem('phonebook-list', phonebookListStringified);
+    }
+  }, [dispatch, isLoggedIn, contacts]);
   return (
     <>
       <Suspense fallback={null}>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
 import { logOut } from 'redux/auth/operations';
+import { nanoid } from '@reduxjs/toolkit';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -14,9 +15,31 @@ const handleRejected = (state, action) => {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
-    contacts: [],
+    contacts: JSON.parse(localStorage.getItem('phonebook-list')) || [],
     isLoading: false,
     error: null,
+  },
+  reducers: {
+    addContactToStorage: {
+      reducer(state, action) {
+        state.contacts.push(action.payload);
+      },
+      prepare(name, number) {
+        return {
+          payload: {
+            name,
+            number,
+            id: nanoid(),
+          },
+        };
+      },
+    },
+    deleteContactFromStorage(state, action) {
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload
+      );
+      state.contacts.splice(index, 1);
+    },
   },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
@@ -27,7 +50,7 @@ const contactsSlice = createSlice({
     [deleteContact.rejected]: handleRejected,
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
-      state.contacts.push(...action.payload);
+      state.contacts = action.payload;
     },
     [addContact.fulfilled](state, action) {
       state.isLoading = false;
@@ -49,3 +72,5 @@ const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
+export const { addContactToStorage, deleteContactFromStorage, removeContacts } =
+  contactsSlice.actions;
